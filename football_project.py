@@ -36,6 +36,8 @@ def strToSortlist(event):
 def chek(event):
     s = e.get()
     s = s.split()
+    if len(s) < 2:
+        return
     reg = re.compile('[^а-яА-Я ]')
     for i in range(len(s)):
         s[i] = s[i].lower()
@@ -46,6 +48,8 @@ def chek(event):
             del s[i]
         else:
             i += 1
+    if len(s) < 2:
+        return
     team1 = proverka(s[0], 0.67)
     team2 = proverka(s[1], 0.67)
     myString1 = ' '.join(team1)
