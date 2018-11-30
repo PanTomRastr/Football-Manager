@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from function import football_box, proverka, chek, sait
+import requests, bs4
 
 class Main(tk.Frame):
     def __init__(self, root):
@@ -22,6 +23,14 @@ class Main(tk.Frame):
         btn_open_game = tk.Button(toolbar, text='Последние игры 2-х комманд', command=self.open_game, bg='#d7d8e0',
                                   bd=0, compound=tk.TOP, image=self.add_img)
         btn_open_game.pack(side=tk.LEFT)
+
+        btn_open_game_now = tk.Button(toolbar, text='Последние игры клубов', command=self.open_game_now, bg='#d7d8e0',
+                                  bd=0, compound=tk.TOP, image=self.add_img)
+        btn_open_game_now.pack(side=tk.LEFT)
+
+        btn_open_club = tk.Button(toolbar, text='Игры между странами', command=self.open_game_club, bg='#d7d8e0',
+                                      bd=0, compound=tk.TOP, image=self.add_img)
+        btn_open_club.pack(side=tk.LEFT)
 
         self.tree1 = ttk.Treeview(self, columns=('ID'))
         self.tree1.column("ID", width=440, anchor=tk.CENTER)
@@ -77,6 +86,18 @@ class Main(tk.Frame):
             self.tree2.set('item2', 'ID', global1[1][1][1])
             self.tree2.set('item3', 'ID', global1[1][1][2])
             self.tree2.set('item4', 'ID', global1[1][1][3])
+
+    def open_game_now(self):
+        s = requests.get('http://wildstat.ru/p/5')
+        b = bs4.BeautifulSoup(s.text, "html.parser")
+        global1 = b.select('.box')
+        Game_now(self, var=global1)
+
+    def open_game_club(self):
+        s = requests.get('http://wildstat.ru/p/6')
+        b = bs4.BeautifulSoup(s.text, "html.parser")
+        global1 = b.select('.tab-row-green')
+        Game_club(self, var=global1)
 
     def print_game(self):
         football_teams = self.text.split()
@@ -163,16 +184,63 @@ class show_Game(tk.Toplevel):
         self.title('Футбольные Команды и их игпы')
         self.geometry('800x420+400+300')
         self.resizable(False, False)
+
         mylist = tk.Listbox(self, width=118, height=20)
         for line in range(len(self.var[2])):
             mylist.insert(tk.END, self.var[2][line])
         mylist.pack(side=tk.LEFT, fill=tk.BOTH)
-        #label_description1 = tk.Label(self, text= self.var)
-        #label_description1.place(x=50, y=50)
 
         btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
         btn_cancel.place(x=715, y=20)
 
+
+class Game_now(tk.Toplevel):
+    def __init__(self, root, var):
+        super().__init__(root)
+        self.root = root
+        self.var = var
+        self.init_game_now()
+
+
+    def init_game_now(self):
+        self.title('Футбольные Команды и их игпы')
+        self.geometry('800x420+400+300')
+        self.resizable(False, False)
+
+        mylist = tk.Listbox(self, width=118, height=20)
+        for line in range(len(self.var)):
+            mylist.insert(tk.END, self.var[line].getText())
+        mylist.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
+        btn_cancel.place(x=715, y=20)
+
+        self.grab_set()
+        self.focus_set()
+
+class Game_club(tk.Toplevel):
+    def __init__(self, root, var):
+        super().__init__(root)
+        self.root = root
+        self.var = var
+        self.init_game_now()
+
+
+    def init_game_now(self):
+        self.title('Футбольные Команды и их игпы')
+        self.geometry('800x420+400+300')
+        self.resizable(False, False)
+
+        mylist = tk.Listbox(self, width=118, height=20)
+        for line in range(1, len(self.var), 2):
+            mylist.insert(tk.END, self.var[line].getText())
+        mylist.pack(side=tk.LEFT, fill=tk.BOTH)
+
+        btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
+        btn_cancel.place(x=715, y=20)
+
+        self.grab_set()
+        self.focus_set()
 
 if __name__ == "__main__":
     root = tk.Tk()
