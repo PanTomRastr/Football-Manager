@@ -117,8 +117,8 @@ def chek(s):
             i += 1
     if len(s) < 2:
         return s
-    team1 = proverka(s[0], 0.63)
-    team2 = proverka(s[1], 0.63)
+    team1 = proverka(s[0], 0.6)
+    team2 = proverka(s[1], 0.6)
     myString1 = ' '.join(team1)
     myString2 = ' '.join(team2)
     lst = []
@@ -146,7 +146,7 @@ def sait(lst1, lst2):
     if (lst1 == 'авангард' and lst2 == 'торпедо') or (lst2 == 'авангард' and lst1 == 'торпедо'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_Torpedo_Taganrog')
 
-    if (lst1 == 'авангард' and lst2 == 'факел') or (lst2 == 'авангард' and lst1 == 'факел'):
+    if (lst1 == 'авангард' and lst2 == 'Факел') or (lst2 == 'авангард' and lst1 == 'Факел'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_Fakel_Voronezh')
 
     if (lst1 == 'авангард' and lst2 == 'металлург') or (lst2 == 'авангард' and lst1 == 'металлург'):
@@ -155,10 +155,10 @@ def sait(lst1, lst2):
     if (lst1 == 'авангард' and lst2 == 'сатурн') or (lst2 == 'авангард' and lst1 == 'сатурн'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_Saturn_Moskovskaya_Oblast')
 
-    if (lst1 == 'ска' and lst2 == 'сатурн') or (lst2 == 'авангард' and lst1 == 'ска'):
+    if (lst1 == 'авангард' and lst2 == 'ска') or (lst2 == 'авангард' and lst1 == 'ска'):
         return football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_ASK_Rostov-on-Don')
 
-    if (lst1 == 'зенит' and lst2 == 'балтика') or (lst2 == 'балтика' and lst1 == 'зенит'):
+    if (lst1 == 'зенит' and lst2 == 'балтика') or (lst1 == 'балтика' and lst2 == 'зенит'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Zenit_St_Petersburg/club2/RUS_Baltika_Kaliningrad')
     return 'Нету комманд'
 

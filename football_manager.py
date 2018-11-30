@@ -10,9 +10,6 @@ class Main(tk.Frame):
 
     def init_main(self):
 
-        #self.scrollbar = tk.Scrollbar(root, orient="vertical")
-        #self.scrollbar.pack(side=tk.LEFT, fill=tk.Y)
-
         toolbar = tk.Frame(bg='#d7d8e0', bd=2)
         toolbar.pack(side=tk.TOP,fill=tk.X)
 
@@ -22,16 +19,12 @@ class Main(tk.Frame):
                                     compound=tk.TOP, image=self.add_img)
         btn_open_dialog.pack(side=tk.LEFT)
 
+        btn_open_game = tk.Button(toolbar, text='Последние игры 2-х комманд', command=self.open_game, bg='#d7d8e0',
+                                  bd=0, compound=tk.TOP, image=self.add_img)
+        btn_open_game.pack(side=tk.LEFT)
+
         self.tree1 = ttk.Treeview(self, columns=('ID'))
         self.tree1.column("ID", width=440, anchor=tk.CENTER)
-        #self.tree1.column("description", width=365, anchor=tk.CENTER)
-        #self.tree1.column("costs", width=150, anchor=tk.CENTER)
-        #self.tree1.column("total", width=100, anchor=tk.CENTER)
-
-        #self.tree1.heading("ID", text='ID')
-        #self.tree1.heading("description", text='Наименование')
-        #self.tree1.heading("costs", text='Статья дохода/расхода')
-        #self.tree1.heading("total", text='Сумма')
 
         self.tree1.insert('', '0', 'item1', text = 'Игры')
         self.tree1.insert('', '1', 'item2', text='Победы')
@@ -42,14 +35,6 @@ class Main(tk.Frame):
 
         self.tree2 = ttk.Treeview(self, columns=('ID'))
         self.tree2.column("ID", width=440, anchor=tk.CENTER)
-        #self.tree2.column("description", width=365, anchor=tk.CENTER)
-        #self.tree2.column("costs", width=150, anchor=tk.CENTER)
-        #self.tree2.column("total", width=100, anchor=tk.CENTER)
-
-        #self.tree2.heading("ID", text='ID')
-        #self.tree2.heading("description", text='Наименование')
-        #self.tree2.heading("costs", text='Статья дохода/расхода')
-        #self.tree2.heading("total", text='Сумма')
 
         self.tree2.insert('', '0', 'item1', text='Игры')
         self.tree2.insert('', '1', 'item2', text='Победы')
@@ -64,13 +49,17 @@ class Main(tk.Frame):
     def open_dialog(self):
         Child(self)
 
+    def open_game(self):
+        Game(self)
+
     def print_text(self):
         football_teams = self.text.split()
         football_teams = chek(football_teams)
-
-        global1 = sait(football_teams[0], football_teams[1])
-
-        print(football_teams, global1)
+        if len(football_teams) != 2:
+            global1 = 'Нету комманд'
+            self.label_teams['text'] = global1
+        else:
+            global1 = sait(football_teams[0], football_teams[1])
 
         if len(football_teams) == 2 and global1 != 'Нету комманд':
 
@@ -89,8 +78,16 @@ class Main(tk.Frame):
             self.tree2.set('item3', 'ID', global1[1][1][2])
             self.tree2.set('item4', 'ID', global1[1][1][3])
 
-        if global1 == 'Нету комманд':
+    def print_game(self):
+        football_teams = self.text.split()
+        football_teams = chek(football_teams)
+
+        if len(football_teams) != 2:
+            global1 = 'Нету комманд'
             self.label_teams['text'] = global1
+        else:
+            global1 = sait(football_teams[0], football_teams[1])
+            show_Game(self, var=global1)
 
 class Child(tk.Toplevel):
     def __init__(self, root):
@@ -105,20 +102,9 @@ class Child(tk.Toplevel):
 
         label_description = tk.Label(self, text='Название 2-х команд:')
         label_description.place(x=50, y=50)
-        #label_select = tk.Label(self, text='Статья дохода/расхода:')
-        #label_select.place(x=50, y=80)
-        #label_sum = tk.Label(self, text='Сумма:')
-        #label_sum.place(x=50, y=110)
 
         self.entry_description = ttk.Entry(self)
         self.entry_description.place(x=200, y=50)
-        #print(s)
-        #self.entry_money = ttk.Entry(self)
-        #self.entry_money.place(x=200, y=110)
-
-        #self.combobox = ttk.Combobox(self, values=[u"Доход", u"Расход"])
-        #self.combobox.current(0)
-        #self.combobox.place(x=200, y=80)
 
         btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
         btn_cancel.place(x=300, y=170)
@@ -134,6 +120,58 @@ class Child(tk.Toplevel):
         self.root.print_text()
         self.destroy()
 
+class Game(tk.Toplevel):
+    def __init__(self, root):
+        super().__init__(root)
+        self.init_game()
+        self.root = root
+
+    def init_game(self):
+        self.title('Футбольные Команды и их игпы')
+        self.geometry('400x220+400+300')
+        self.resizable(False, False)
+
+        label_description = tk.Label(self, text='Название 2-х команд:')
+        label_description.place(x=50, y=50)
+
+        self.entry_description = ttk.Entry(self)
+        self.entry_description.place(x=200, y=50)
+
+        btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
+        btn_cancel.place(x=300, y=170)
+
+        btn_ok = ttk.Button(self, text='Посмотреть игры', command = self.add_game)
+        btn_ok.place(x=190, y=170)
+
+        self.grab_set()
+        self.focus_set()
+
+    def add_game(self):
+        self.root.text = self.entry_description.get()
+        self.root.print_game()
+        self.destroy()
+
+
+class show_Game(tk.Toplevel):
+    def __init__(self, root, var):
+        super().__init__(root)
+        self.root = root
+        self.var = var
+        self.init_show_game()
+
+    def init_show_game(self):
+        self.title('Футбольные Команды и их игпы')
+        self.geometry('800x420+400+300')
+        self.resizable(False, False)
+        mylist = tk.Listbox(self, width=118, height=20)
+        for line in range(len(self.var[2])):
+            mylist.insert(tk.END, self.var[2][line])
+        mylist.pack(side=tk.LEFT, fill=tk.BOTH)
+        #label_description1 = tk.Label(self, text= self.var)
+        #label_description1.place(x=50, y=50)
+
+        btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
+        btn_cancel.place(x=715, y=20)
 
 
 if __name__ == "__main__":
