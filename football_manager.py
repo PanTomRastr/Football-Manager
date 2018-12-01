@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from function import football_box, proverka, chek, sait
 import requests, bs4
+import playsound
 
 class Main(tk.Frame):
     def __init__(self, root):
@@ -32,9 +33,13 @@ class Main(tk.Frame):
                                       bd=0, compound=tk.TOP, image=self.add_img)
         btn_open_club.pack(side=tk.LEFT)
 
+        btn_open_music = tk.Button(toolbar, text='музыка', command=self.open_music, bg='#d7d8e0',
+                                  bd=0, compound=tk.TOP, image=self.add_img)
+        btn_open_music.pack(side=tk.LEFT)
+        ''''
         self.tree1 = ttk.Treeview(self, columns=('ID'))
         self.tree1.column("ID", width=440, anchor=tk.CENTER)
-
+        
         self.tree1.insert('', '0', 'item1', text = 'Игры')
         self.tree1.insert('', '1', 'item2', text='Победы')
         self.tree1.insert('', '2', 'item3', text='Ничьи')
@@ -51,7 +56,7 @@ class Main(tk.Frame):
         self.tree2.insert('', '3', 'item4', text='Проигрыши')
 
         self.tree2.pack(side=tk.LEFT)
-
+        '''
         self.label_teams = tk.Label(bg='black', fg='white', width=182, height=15)
         self.label_teams.pack()
 
@@ -73,6 +78,25 @@ class Main(tk.Frame):
         if len(football_teams) == 2 and global1 != 'Нету комманд':
 
             self.label_teams['text'] = '\n'.join(football_teams)
+            self.tree1 = ttk.Treeview(self, columns=('ID'))
+            self.tree1.column("ID", width=440, anchor=tk.CENTER)
+
+            self.tree1.insert('', '0', 'item1', text='Игры')
+            self.tree1.insert('', '1', 'item2', text='Победы')
+            self.tree1.insert('', '2', 'item3', text='Ничьи')
+            self.tree1.insert('', '3', 'item4', text='Проигрыши')
+
+            self.tree1.pack(side=tk.LEFT)
+
+            self.tree2 = ttk.Treeview(self, columns=('ID'))
+            self.tree2.column("ID", width=440, anchor=tk.CENTER)
+
+            self.tree2.insert('', '0', 'item1', text='Игры')
+            self.tree2.insert('', '1', 'item2', text='Победы')
+            self.tree2.insert('', '2', 'item3', text='Ничьи')
+            self.tree2.insert('', '3', 'item4', text='Проигрыши')
+
+            self.tree2.pack(side=tk.LEFT)
 
             self.tree1.heading("ID", text=global1[0][0])
             self.tree2.heading("ID", text=global1[1][0])
@@ -109,6 +133,9 @@ class Main(tk.Frame):
         else:
             global1 = sait(football_teams[0], football_teams[1])
             show_Game(self, var=global1)
+
+    def open_music(self):
+        playsound.playsound('file2.mp3', True)
 
 class Child(tk.Toplevel):
     def __init__(self, root):
@@ -148,7 +175,7 @@ class Game(tk.Toplevel):
         self.root = root
 
     def init_game(self):
-        self.title('Футбольные Команды и их игпы')
+        self.title('Футбольные Команды и их иглы')
         self.geometry('400x220+400+300')
         self.resizable(False, False)
 
@@ -181,7 +208,7 @@ class show_Game(tk.Toplevel):
         self.init_show_game()
 
     def init_show_game(self):
-        self.title('Футбольные Команды и их игпы')
+        self.title('Футбольные Команды и их иглы')
         self.geometry('800x420+400+300')
         self.resizable(False, False)
 
@@ -203,7 +230,7 @@ class Game_now(tk.Toplevel):
 
 
     def init_game_now(self):
-        self.title('Футбольные Команды и их игпы')
+        self.title('Футбольные Команды и их иглы')
         self.geometry('800x420+400+300')
         self.resizable(False, False)
 
@@ -227,7 +254,7 @@ class Game_club(tk.Toplevel):
 
 
     def init_game_now(self):
-        self.title('Футбольные Команды и их игпы')
+        self.title('Футбольные Команды и их иглы')
         self.geometry('800x420+400+300')
         self.resizable(False, False)
 
