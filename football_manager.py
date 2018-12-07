@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
-from function import football_box, proverka, chek, sait, music, open_game_now, open_game_club
+from function import  football_box, proverka, chek, sait, music, open_game_now, open_game_club
+#from pingpong import  update_score, spawn_ball,  bounce,  move_ball,  move_pads,  main,  movement_handler, stop_pad
 import requests, bs4
 import playsound
 import threading
+import random
+from pingpong import  *
 
 t = threading.Thread(target=music, name='Thread1')
 
@@ -23,7 +26,8 @@ class Main(tk.Frame):
         self.add_img2 = tk.PhotoImage(file="football.png")
         self.add_img3 = tk.PhotoImage(file="schedule.png")
         self.add_img4 = tk.PhotoImage(file="strategy.png")
-        self.add_img5 = tk.PhotoImage(file="music-player.png")
+        self.add_img5 = tk.PhotoImage(file="foosball.png")
+        self.add_img6 = tk.PhotoImage(file="music-player.png")
 
         btn_open_dialog = tk.Button(toolbar, text='Сравните команды', command=self.open_dialog, bg='#d7d8e0', bd=0,
                                     compound=tk.TOP, image=self.add_img)
@@ -41,31 +45,16 @@ class Main(tk.Frame):
                                       bd=0, compound=tk.TOP, image=self.add_img4)
         btn_open_club.pack(side=tk.LEFT)
 
+        btn_open_pinpong = tk.Button(toolbar, text='Мини игра', command=self.open_ping, bg='#d7d8e0',
+                                     bd=0, compound=tk.TOP, image=self.add_img5)
+        btn_open_pinpong.pack(side=tk.LEFT)
+
         btn_open_music = tk.Button(toolbar, text='музыка', command=self.open_music, bg='#d7d8e0',
-                                  bd=0, compound=tk.TOP, image=self.add_img5)
+                                  bd=0, compound=tk.TOP, image=self.add_img6)
         btn_open_music.pack(side=tk.LEFT)
-        ''''
-        self.tree1 = ttk.Treeview(self, columns=('ID'))
-        self.tree1.column("ID", width=440, anchor=tk.CENTER)
-        
-        self.tree1.insert('', '0', 'item1', text = 'Игры')
-        self.tree1.insert('', '1', 'item2', text='Победы')
-        self.tree1.insert('', '2', 'item3', text='Ничьи')
-        self.tree1.insert('', '3', 'item4', text='Проигрыши')
 
-        self.tree1.pack(side=tk.LEFT)
-
-        self.tree2 = ttk.Treeview(self, columns=('ID'))
-        self.tree2.column("ID", width=440, anchor=tk.CENTER)
-
-        self.tree2.insert('', '0', 'item1', text='Игры')
-        self.tree2.insert('', '1', 'item2', text='Победы')
-        self.tree2.insert('', '2', 'item3', text='Ничьи')
-        self.tree2.insert('', '3', 'item4', text='Проигрыши')
-
-        self.tree2.pack(side=tk.LEFT)
-        '''
-        self.label_teams = tk.Label(bg='black', fg='white', width=182, height=15)
+        self.label_teams = tk.Label(bg='black', fg='white', width=182, height=15, text= 'Добро пожаловать в ' + '\n' +
+                                                                                        'football manager 2018')
         self.label_teams.pack()
 
     def open_dialog(self):
@@ -79,6 +68,10 @@ class Main(tk.Frame):
 
     def open_year_club(self):
         Year_club(self)
+
+    def open_ping(self):
+        c.pack()
+        main()
 
     def print_text(self):
         football_teams = self.text.split()
@@ -124,18 +117,6 @@ class Main(tk.Frame):
             self.tree2.set('item2', 'ID', global1[1][1][1])
             self.tree2.set('item3', 'ID', global1[1][1][2])
             self.tree2.set('item4', 'ID', global1[1][1][3])
-
-    #def open_game_now(self):
-        #s = requests.get('http://wildstat.ru/p/5')
-        #b = bs4.BeautifulSoup(s.text, "html.parser")
-        #global1 = b.select('.box')
-        #Game_now(self, var=global1)
-
-    #def open_game_club(self):
-        #s = requests.get('http://wildstat.ru/p/6')
-        #b = bs4.BeautifulSoup(s.text, "html.parser")
-        #global1 = b.select('.tab-row-green')
-        #Game_club(self, var=global1)
 
     def print_game(self):
         football_teams = self.text.split()
@@ -395,7 +376,7 @@ class Year(tk.Toplevel):
         self.resizable(False, False)
 
         label_select = tk.Label(self, text='Годы:')
-        label_select.place(x=50, y=80)
+        label_select.place(x=155, y=80)
 
         self.combobox = ttk.Combobox(self, values=[u"2019", u"2018", "2017", u"2016", u"2015", u"2014", "2013",
                                                    u"2012", u"2011", u"2010", "2009", u"2008"])
@@ -428,7 +409,7 @@ class Year_club(tk.Toplevel):
         self.resizable(False, False)
 
         label_select = tk.Label(self, text='Годы:')
-        label_select.place(x=50, y=80)
+        label_select.place(x=155, y=80)
 
         self.combobox = ttk.Combobox(self, values=[u"2019/2018", u"2018/2017", "2017/2016", u"2016/2015", u"2015/2014",
                                                    u"2014/2013", "2013/2012",
@@ -451,8 +432,41 @@ class Year_club(tk.Toplevel):
         self.root.print_year_club()
         self.destroy()
 
+class Game(tk.Toplevel):
+    def __init__(self, root):
+        super().__init__(root)
+        self.init_game()
+        self.root = root
+
+    def init_game(self):
+        self.title('Футбольные Команды и их иглы')
+        self.geometry('400x220+400+300')
+        self.resizable(False, False)
+
+        label_description = tk.Label(self, text='Название 2-х команд:')
+        label_description.place(x=50, y=50)
+
+        self.entry_description = ttk.Entry(self)
+        self.entry_description.place(x=200, y=50)
+
+        btn_cancel = ttk.Button(self, text='Закрыть', command=self.destroy)
+        btn_cancel.place(x=300, y=170)
+
+        btn_ok = ttk.Button(self, text='Посмотреть игры', command = self.add_game)
+        btn_ok.place(x=190, y=170)
+
+        self.grab_set()
+        self.focus_set()
+
+    def add_game(self):
+        self.root.text = self.entry_description.get()
+        self.root.print_game()
+        self.destroy()
+
+
+
 if __name__ == "__main__":
-    root = tk.Tk()
+    #root = tk.Tk()
     app = Main(root)
     app.pack()
     root.title("football_manager")

@@ -1,14 +1,13 @@
 import requests, bs4
 import re
-#from PIL import ImageTk
 import playsound
 
 lst = ['авангард', 'уфа', 'анжи', 'ангушт', 'мордовия', 'cпартаквладикавказ', 'рубин', 'камаз', 'нефтехимик', 'ахмат',
-       'динамо', 'краснодар', 'сочи', 'черноморец', 'енисей', 'звезда', 'ска-хабаровск', 'салют',
-       'торпедо', 'муром', 'ротор-волгоград', 'ротор', 'Факел', 'балтика', 'калуга', 'ленинградец',
-       'металлург', 'химки', 'коломна', 'знамя Труда', 'долгопрудный', 'сатурн', 'химки-м', 'нижний новгород',
-       'сибирь', 'оренбург', 'псков', 'луки-энергия', 'ростов', 'ска', 'крылья советов', 'сокол', 'урал'
-         'днепр', 'томь', 'арсенал', 'шинник', 'цска', 'спартак', 'локомотив', 'динамо', 'чертаново', 'торпедо',
+       'динамо', 'краснодар', 'сочи', 'черноморец', 'енисей', 'звезда', 'салют',
+       'торпедо', 'муром', 'ротор', 'Факел', 'балтика', 'калуга', 'ленинградец',
+       'металлург', 'химки', 'коломна', 'знамятруда', 'долгопрудный', 'сатурн', 'химким', 'нижнийновгород',
+       'сибирь', 'оренбург', 'псков', 'лукиэнергия', 'ростов', 'ска', 'крыльясоветов', 'сокол', 'урал'
+         'днепр', 'томь', 'арсенал', 'шинник', 'цска', 'спартак', 'локомотив', 'чертаново', 'торпедо',
        'казанка', 'велес', 'чертаново', 'строгино', 'зенит']
 
 
@@ -159,6 +158,35 @@ def sait(lst1, lst2):
     if (lst1 == 'авангард' and lst2 == 'ска') or (lst2 == 'авангард' and lst1 == 'ска'):
         return football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_ASK_Rostov-on-Don')
 
+    if (lst1 == 'авангард' and lst2 == 'цска') or (lst2 == 'авангард' and lst1 == 'цска'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_CSKA-D_Moskva')
+
+    if (lst1 == 'авангард' and lst2 == 'спартак') or (lst2 == 'авангард' and lst1 == 'спартак'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_Spartak_Shchelkovo')
+
+    if (lst1 == 'авангард' and lst2 == 'локомотив') or (lst2 == 'авангард' and lst1 == 'локомотив'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_Lokomotiv_St_Petersburg')
+
+    if (lst1 == 'авангард' and lst2 == 'торпедо') or (lst2 == 'авангард' and lst1 == 'торпедо'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Avangard_Kolomna/club2/RUS_Torpedo_Taganrog')
+
+    if (lst1 == 'уфа' and lst2 == 'анжи') or (lst2 == 'уфа' and lst1 == 'анжи'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Bashinformsvyaz-Dinamo_Ufa/club2/RUS_Anzhi_Makhachkala')
+
+    if (lst1 == 'уфа' and lst2 == 'анжи') or (lst2 == 'уфа' and lst1 == 'анжи'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Bashinformsvyaz-Dinamo_Ufa/club2/RUS_Anzhi_Makhachkala')
+
+    if (lst1 == 'уфа' and lst2 == 'ангушт') or (lst2 == 'уфа' and lst1 == 'ангушт'):
+        return football_box('http://wildstat.ru/p/60/ch/all/club1/RUS_Bashinformsvyaz-Dinamo_Ufa/club2/RUS_Angusht-2_Nazran')
+
+    if (lst1 == 'уфа' and lst2 == 'мордовия') or (lst2 == 'уфа' and lst1 == 'мордовия'):
+        return football_box(
+            'http://wildstat.ru/p/60/ch/all/club1/RUS_Bashinformsvyaz-Dinamo_Ufa/club2/RUS_Mordovia_Saransk')
+
+    if (lst1 == 'уфа' and lst2 == 'спартак') or (lst2 == 'уфа' and lst1 == 'спартак'):
+        return football_box(
+            'http://wildstat.ru/p/60/ch/all/club1/RUS_Bashinformsvyaz-Dinamo_Ufa/club2/RUS_Spartak_Moskva')
+
     if (lst1 == 'зенит' and lst2 == 'балтика') or (lst1 == 'балтика' and lst2 == 'зенит'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Zenit_St_Petersburg/club2/RUS_Baltika_Kaliningrad')
 
@@ -184,17 +212,12 @@ def music():
     target = playsound.playsound('file2.mp3', True)
 
 
-#print(sait('анжи', 'авангард'))
-# print(proverka('балтека', 0.7))
-
 '''''
-cпартаквладикавказ
-lst = ['авангард', 'уфа', 'анжи', 'ангушт', 'мордовия', 'cпартак-владикавказ', 'рубин', 'камаз', 'нефтехимик', 'ахмат',
-       'динамо', 'краснодар', 'сочи', 'черноморец', 'енисей', 'звезда', 'ска-хабаровск', 'салют',
-       'торпедо', 'муром', 'ротор-волгоград', 'ротор', 'Факел', 'балтика', 'калуга', 'ленинградец',
-       'металлург', 'химки', 'коломна', 'знамя Труда', 'долгопрудный', 'Сатурн', 'Химки-М', 'нижний новгород',
-       'сибирь', 'оренбург', 'псков', 'луки-энергия', 'ростов', 'ска', 'крылья советов', 'сокол', 'урал'
-         'днепр', 'томь', 'арсенал', 'шинник', 'цска', 'спартак', 'локомотив', 'динамо', 'чертаново', 'торпедо',
+lst = ['авангард', 'уфа', 'анжи', 'ангушт', 'мордовия', 'cпартаквладикавказ', 'рубин', 'камаз', 'нефтехимик', 'ахмат',
+       'динамо', 'краснодар', 'сочи', 'черноморец', 'енисей', 'звезда', 'салют',
+       'торпедо', 'муром', 'ротор', 'Факел', 'балтика', 'калуга', 'ленинградец',
+       'металлург', 'химки', 'коломна', 'знамятруда', 'долгопрудный', 'сатурн', 'химким', 'нижнийновгород',
+       'сибирь', 'оренбург', 'псков', 'лукиэнергия', 'ростов', 'ска', 'крыльясоветов', 'сокол', 'урал'
+         'днепр', 'томь', 'арсенал', 'шинник', 'цска', 'спартак', 'локомотив', 'чертаново', 'торпедо',
        'казанка', 'велес', 'чертаново', 'строгино', 'зенит']
-
 '''
