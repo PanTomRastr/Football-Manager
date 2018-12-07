@@ -1,6 +1,6 @@
 import requests, bs4
 import re
-from PIL import ImageTk
+#from PIL import ImageTk
 import playsound
 
 lst = ['авангард', 'уфа', 'анжи', 'ангушт', 'мордовия', 'cпартаквладикавказ', 'рубин', 'камаз', 'нефтехимик', 'ахмат',
