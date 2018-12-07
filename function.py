@@ -187,8 +187,22 @@ def sait(lst1, lst2):
         return football_box(
             'http://wildstat.ru/p/60/ch/all/club1/RUS_Bashinformsvyaz-Dinamo_Ufa/club2/RUS_Spartak_Moskva')
 
+    if (lst1 == 'зенит' and lst2 == 'авангард') or (lst2 == 'зенит' and lst1 == 'авангард'):
+        return football_box(
+            'http://wildstat.ru/p/60/ch/all/club1/RUS_Zenit_St_Petersburg/club2/RUS_Avangard_Kamyshin')
+
+
+    if (lst1 == 'зенит' and lst2 == 'анжи') or (lst2 == 'зенит' and lst1 == 'анжи'):
+        return football_box(
+            'http://wildstat.ru/p/60/ch/all/club1/RUS_Zenit_St_Petersburg/club2/RUS_Anzhi_Makhachkala')
+
+    if (lst1 == 'зенит' and lst2 == 'локомотив') or (lst2 == 'зенит' and lst1 == 'локомотив'):
+        return football_box(
+            'http://wildstat.ru/p/60/ch/all/club1/RUS_Zenit_St_Petersburg/club2/RUS_Lokomotiv_Moskva')
+
     if (lst1 == 'зенит' and lst2 == 'балтика') or (lst1 == 'балтика' and lst2 == 'зенит'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_Zenit_St_Petersburg/club2/RUS_Baltika_Kaliningrad')
+
 
     if (lst1 == 'салют' and lst2 == 'cпартаквладикавказ') or (lst1 == 'салют' and lst2 == 'cпартаквладикавказ'):
         return  football_box('http://wildstat.ru/p/7001/ch/all/club1/RUS_FC_Spartak_Vladikavkaz/club2/RUS_Salyut_Belgorod')

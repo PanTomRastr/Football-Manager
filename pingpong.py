@@ -124,7 +124,6 @@ def move_pads():
 def main():
     move_ball()
     move_pads()
-
     root.after(30, main)
 
 

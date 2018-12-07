@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from function import  football_box, proverka, chek, sait, music, open_game_now, open_game_club
-#from pingpong import  update_score, spawn_ball,  bounce,  move_ball,  move_pads,  main,  movement_handler, stop_pad
 import requests, bs4
 import playsound
 import threading
@@ -21,7 +20,7 @@ class Main(tk.Frame):
         toolbar = tk.Frame(bg='#d7d8e0', bd=2)
         toolbar.pack(side=tk.TOP,fill=tk.X)
 
-
+        self.flag = False
         self.add_img = tk.PhotoImage(file="soccer-game.png")
         self.add_img2 = tk.PhotoImage(file="football.png")
         self.add_img3 = tk.PhotoImage(file="schedule.png")
@@ -70,10 +69,15 @@ class Main(tk.Frame):
         Year_club(self)
 
     def open_ping(self):
+        if self.flag:
+            self.tree1.destroy()
+            self.tree2.destroy()
+            flag = False
         c.pack()
         main()
 
     def print_text(self):
+        self.flag = True
         football_teams = self.text.split()
         football_teams = chek(football_teams)
         if len(football_teams) != 2:
@@ -470,7 +474,7 @@ if __name__ == "__main__":
     app = Main(root)
     app.pack()
     root.title("football_manager")
-    root.geometry("1280x720+300+200")
+    root.geometry("1280x950+300+200")
     root.resizable(False, False)
     root.mainloop()
 
